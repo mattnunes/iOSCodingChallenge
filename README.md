@@ -18,6 +18,7 @@ Starting with the skeleton app provided in this repo, create an app that does th
 4. Display the products nicely in a scrollable list including their name, their image, and their price.  Use our existing app for an idea of our asthetic.
 
 Bonus points for:
+
 1. Sorting the list of products by price
 2. Allowing the user to swipe left and remove a product from the list, never to see it appear again
 
