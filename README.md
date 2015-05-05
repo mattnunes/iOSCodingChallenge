@@ -28,7 +28,7 @@ We expect this exercise to take no more than a few hours.  If it's taking longer
 
 ## How to submit your results
 
-Please follow these directions precisely because they effect our ability to evaluate your results.
+Please follow these directions precisely because they affect our ability to evaluate your results.
 
 1. Fork this repo
 2. Create a new branch in git with your name (ie. tim-cull)
