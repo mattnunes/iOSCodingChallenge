@@ -4,7 +4,7 @@ Here's a coding challenge we give to developers looking for mobile jobs.  Feel f
 
 Starting with the skeleton app provided in this repo, create an app that does the following:
 
-1. Makes an HTTP call to a webservice at https://www.touchofmodern.com/public/ioschallenge.json
+1. Makes an HTTP call to a webservice at https://public.touchofmodern.com/public/ioschallenge.json
 2. In the body of the request, send a JSON payload with today's date in it, like this: "{requestDate: 'yyyy-mm-dd'}"
 3. If the request is correctly formatted, you'll get back a payload like this, describing a list of products (if it's not correctly formatted, you'll get an error response):
 {
