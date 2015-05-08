@@ -9,13 +9,13 @@ Starting with the skeleton app provided in this repo, create an app that does th
 3. If the request is correctly formatted, you'll get back a payload like this, describing a list of products (if it's not correctly formatted, you'll get an error response):
 {
   products: [
-   {name: 'Product A', image: 'https://photos.touchofmodern.com/blah/blah.png', price: 12.33},
- {name: 'Product B', image: 'https://photos.touchofmodern.com/blah/blah.png', price: 66.33},
- {name: 'Product C', image: 'https://photos.touchofmodern.com/blah/blah.png', price: 12.99},
- {name: 'Product D', image: 'https://photos.touchofmodern.com/blah/blah.png', price: 14.33}
+   {name: 'Product A', image: 'https://photos.touchofmodern.com/blah/blah.png', price: 12.33, description: "blah blah"},
+ {name: 'Product B', image: 'https://photos.touchofmodern.com/blah/blah.png', price: 66.33, description: "blah blah"},
+ {name: 'Product C', image: 'https://photos.touchofmodern.com/blah/blah.png', price: 12.99, description: "blah blah"},
+ {name: 'Product D', image: 'https://photos.touchofmodern.com/blah/blah.png', price: 14.33, description: "blah blah"}
   ]
 }
-4. Display the products nicely in a scrollable list including their name, their image, and their price.  Use our existing app for an idea of our asthetic.
+4. Display the products nicely in a scrollable list including their name, their image, their description, and their price.  Use our existing app for an idea of our asthetic.
 
 Please don't use any high-level libraries (pods) for this work.  We're interested in your coding style, and not your ability to hammer together external libraries.
 
@@ -33,10 +33,9 @@ We expect this exercise to take no more than a few hours.  If it's taking longer
 Please follow these directions precisely because they affect our ability to evaluate your results.
 
 1. Fork this repo
-2. Create a new branch in git with your name (ie. tim-cull)
+2. Create a new branch in your repo with your name (ie. tim-cull)
 3. Do your coding challenge and push to your forked repo
-4. Submit a pull request to our repo when you are satisfied with your results
-5. Email us to let us know you're ready.
+4. Email a link to your repo to tim.cull@touchofmodern.com and the recruiter you're working with (i.e. Sally or Tarveen) to let us know you're ready.
 
 ## What we are looking for
 
