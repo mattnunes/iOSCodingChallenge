@@ -15,9 +15,13 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    // Set up an NSURLCache so that the images won't be downloaded all the time
+    NSURLCache *cache = [NSURLCache sharedURLCache];
+    [cache setMemoryCapacity:100 /*MB*/ * 1024 * 1024];
+    [cache setDiskCapacity:100 /*MB*/ * 1024 * 1024];
+    
     return YES;
 }
 

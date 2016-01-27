@@ -95,40 +95,39 @@
     [request setHTTPBody:bodyData];
     
     // Dispatch the request and handle it with a completion block.
+    // TODO: Break this out to make it a tad bit more extensible/readable. For example, a version of -submitRequest:completion: that automatically parses JSON.
     return [self submitRequest:request completion:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (error) {
-                completion(nil, error);
+        if (error) {
+            completion(nil, error);
+        }
+        else {
+            
+            // Attempt to parse the JSON data into an object
+            NSError *jsonError = nil;
+            NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            if (jsonError != nil) {
+                completion(nil, jsonError);
+                return; // - - - - EARLY RETURN - - - -
             }
-            else {
+            
+            // Then build up an array of the JSON parsed into our model objects
+            NSMutableArray *mArray = [NSMutableArray array];
+            NSError *parseError = nil;
+            
+            for (NSDictionary *dict in arr) {
                 
-                // Attempt to parse the JSON data into an object
-                NSError *jsonError = nil;
-                NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-                if (jsonError != nil) {
-                    completion(nil, jsonError);
+                Product *product = [Product fromJSON:dict error:&parseError];
+                if (parseError != nil) {
+                    completion(nil, parseError);
                     return; // - - - - EARLY RETURN - - - -
                 }
                 
-                // Then build up an array of the JSON parsed into our model objects
-                NSMutableArray *mArray = [NSMutableArray array];
-                NSError *parseError = nil;
+                [mArray addObject:product];
                 
-                for (NSDictionary *dict in arr) {
-                    
-                    Product *product = [Product fromJSON:dict error:&parseError];
-                    if (parseError != nil) {
-                        completion(nil, parseError);
-                        return; // - - - - EARLY RETURN - - - -
-                    }
-                    
-                    [mArray addObject:product];
-                    
-                }
-                
-                completion(mArray, nil);
             }
-        });
+            
+            completion(mArray, nil);
+        }
     }];
 }
 

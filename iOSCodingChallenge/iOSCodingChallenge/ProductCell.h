@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class Product;
+@class Product, DataService;
 
 @interface ProductCell : UITableViewCell
 
-@property (nonatomic, nonnull) Product *product;
+- (void)setProduct:(Product * _Nonnull)product service:(DataService * _Nonnull)service;
 
 @end

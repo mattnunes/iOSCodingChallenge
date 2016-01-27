@@ -20,7 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-@property NSProgress *imageProgress;
+@property (nullable) Product *product;
+@property (nullable) DataService *service;
+@property (nullable) NSProgress *imageProgress;
 
 - (void)updateInterfaceWithProduct:(Product  * _Nonnull)product;
 
@@ -31,29 +33,39 @@
 @implementation ProductCell
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-- (void)setProduct:(Product *)product
+- (void)setProduct:(Product *)product service:(DataService *)service;
 {
-    [self willChangeValueForKey:@"product"];
-    _product = product;
-    [self didChangeValueForKey:@"product"];
-    
-    [self updateInterfaceWithProduct:_product];
+    self.product = product;
+    self.service = service;
+    [self updateInterfaceWithProduct:[self product]];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 - (void)updateInterfaceWithProduct:(Product *)product
 {
-    self.nameLabel.text = [self.product name];
-    self.priceLabel.text = [NSString stringWithFormat:@"$%.02f", [self.product.price floatValue]];
-    self.descriptionLabel.text = [self.product itemDescription];
+    self.nameLabel.text = [product name];
+    self.priceLabel.text = [NSString stringWithFormat:@"$%.02f", [product.price floatValue]];
+    self.descriptionLabel.text = [product itemDescription];
     
     [self.imageProgress cancel];
     self.productImageView.image = nil;
     [self.activityIndicator startAnimating];
     
-    self.imageProgress = [[DataService new] getImageWithURL:[self.product imageURL] completion:^(UIImage * _Nullable image, NSError * _Nullable error) {
-        self.productImageView.image = image;
+    // TODO: Figure out why there's a brief flicker even when the image should be cached.
+    // Maybe the server isn't setting the correct caching headers?
+    self.imageProgress = [self.service getImageWithURL:[product imageURL] completion:^(UIImage * _Nullable image, NSError * _Nullable error) {
+        
+        if (error != nil) {
+            NSLog(@"Error encountered loading image: %@", error);
+            self.productImageView.image = [UIImage imageNamed:@"Alert"];
+        }
+        else {
+            self.productImageView.image = image;
+        }
+        
+        self.imageProgress = nil;
         [self.activityIndicator stopAnimating];
+        
     }];
 }
 
