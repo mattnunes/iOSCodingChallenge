@@ -54,7 +54,7 @@
     // TODO: Do some type- and nil-checking
     NSDictionary *jsonDictionary = (NSDictionary *)object;
     product.name = [jsonDictionary objectForKey:@"name"];
-    product.imageURL = [jsonDictionary objectForKey:@"image"];
+    product.imageURL = [NSURL URLWithString:[jsonDictionary objectForKey:@"image"]];
     product.price = [jsonDictionary objectForKey:@"price"];
     product.itemDescription = [jsonDictionary objectForKey:@"description"];
     

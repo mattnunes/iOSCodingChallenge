@@ -10,6 +10,7 @@
 		34136FC51C585A4F002391D3 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 34136FC41C585A4F002391D3 /* DataService.m */; };
 		34FAED851C58615E00A8DCBD /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FAED841C58615E00A8DCBD /* Product.m */; };
 		34FAED8A1C5862C300A8DCBD /* NSObject+Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FAED891C5862C300A8DCBD /* NSObject+Types.m */; };
+		34FAED8E1C586CAC00A8DCBD /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FAED8D1C586CAC00A8DCBD /* ProductCell.m */; };
 		C32F0F6E1AFA987A00F9B22E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F0F6D1AFA987A00F9B22E /* main.m */; };
 		C32F0F711AFA987A00F9B22E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F0F701AFA987A00F9B22E /* AppDelegate.m */; };
 		C32F0F741AFA987A00F9B22E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F0F731AFA987A00F9B22E /* ViewController.m */; };
@@ -38,6 +39,8 @@
 		34FAED861C5861F900A8DCBD /* JSONCreatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONCreatable.h; sourceTree = "<group>"; };
 		34FAED881C5862C300A8DCBD /* NSObject+Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Types.h"; sourceTree = "<group>"; };
 		34FAED891C5862C300A8DCBD /* NSObject+Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Types.m"; sourceTree = "<group>"; };
+		34FAED8C1C586CAC00A8DCBD /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
+		34FAED8D1C586CAC00A8DCBD /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
 		C32F0F681AFA987A00F9B22E /* iOSCodingChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCodingChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32F0F6C1AFA987A00F9B22E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C32F0F6D1AFA987A00F9B22E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 				C32F0F701AFA987A00F9B22E /* AppDelegate.m */,
 				C32F0F721AFA987A00F9B22E /* ViewController.h */,
 				C32F0F731AFA987A00F9B22E /* ViewController.m */,
+				34FAED8C1C586CAC00A8DCBD /* ProductCell.h */,
+				34FAED8D1C586CAC00A8DCBD /* ProductCell.m */,
 				C32F0F751AFA987A00F9B22E /* Main.storyboard */,
 				34FAED871C5862A600A8DCBD /* Utilities */,
 				C32F0F781AFA987A00F9B22E /* Images.xcassets */,
@@ -267,6 +272,7 @@
 				C32F0F711AFA987A00F9B22E /* AppDelegate.m in Sources */,
 				C32F0F6E1AFA987A00F9B22E /* main.m in Sources */,
 				34136FC51C585A4F002391D3 /* DataService.m in Sources */,
+				34FAED8E1C586CAC00A8DCBD /* ProductCell.m in Sources */,
 				34FAED8A1C5862C300A8DCBD /* NSObject+Types.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

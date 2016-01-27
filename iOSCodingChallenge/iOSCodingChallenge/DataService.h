@@ -6,7 +6,10 @@
 //  Copyright © 2016 Touch of Modern. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+
+@class Product;
 
 @interface DataService : NSObject
 
@@ -15,6 +18,8 @@
  * - parameter: completion The completion block, with an `NSArray` of `Product`s, and
  *  an `NSError` containing information about a failure.
  */
-- (void)getProducts:(void (^ _Nonnull)( NSArray<Product *> * _Nullable products, NSError * _Nullable error))completion;
+- (NSProgress * _Nullable)getProducts:(void (^ _Nonnull)(NSArray<Product *> * _Nullable products, NSError * _Nullable error))completion;
+
+- (NSProgress * _Nullable)getImageWithURL:(NSURL * _Nonnull)url completion:(void (^ _Nonnull)(UIImage * _Nullable image, NSError * _Nullable error))completion;
 
 @end

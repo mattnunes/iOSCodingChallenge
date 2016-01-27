@@ -17,6 +17,8 @@
 
 @property NSURLSession *session;
 
+- (NSProgress * _Nonnull)submitRequest:(NSURLRequest *)request completion:(void (^ _Nonnull)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completion;
+
 @end
 
 #pragma mark - Implementation
@@ -34,7 +36,29 @@
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-- (void)getProducts:(void (^ _Nonnull)( NSArray * _Nullable products, NSError * _Nullable error))completion
+- (NSProgress * _Nonnull)submitRequest:(NSURLRequest *)request completion:(void (^)(NSData * _Nullable, NSURLResponse * _Nullable, NSError * _Nullable))completion
+{
+    NSProgress *progress = [NSProgress progressWithTotalUnitCount:1];
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [progress setCompletedUnitCount:1];
+            completion(data, response, error);
+        });
+
+    }];
+    
+    [progress setCancellationHandler:^{
+        [task cancel];
+    }];
+    
+    [task resume];
+    
+    return progress;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (NSProgress * _Nullable)getProducts:(void (^ _Nonnull)(NSArray<Product *> * _Nullable products, NSError * _Nullable error))completion
 {
     // If the URL fails to parse, then we fail out immediately.
     NSURL *url = [NSURL URLWithString:@"https://public.touchofmodern.com/ioschallenge.json"];
@@ -43,7 +67,7 @@
                                              code:InvalidURLErrorCode
                                          userInfo:nil];
         completion(nil, error);
-        return; // - - - - EARLY RETURN - - - -
+        return nil; // - - - - EARLY RETURN - - - -
     }
     
     // Generate the body data (requestDate: yyyy-mm-dd)
@@ -60,7 +84,7 @@
                                                          error:&jsonError];
     if (jsonError != nil) {
         completion(nil, jsonError);
-        return; // - - - - EARLY RETURN - - - -
+        return nil; // - - - - EARLY RETURN - - - -
     }
     
     // Make up the JSON Request
@@ -71,7 +95,7 @@
     [request setHTTPBody:bodyData];
     
     // Dispatch the request and handle it with a completion block.
-    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    return [self submitRequest:request completion:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error) {
                 completion(nil, error);
@@ -106,10 +130,24 @@
             }
         });
     }];
-    [dataTask resume];
 }
 
-
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (NSProgress * _Nullable)getImageWithURL:(NSURL * _Nonnull)url completion:(void (^ _Nonnull)(UIImage * _Nullable image, NSError * _Nullable error))completion {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setValue:@"image/jpeg, image/png" forHTTPHeaderField:@"Accept"];
+    
+    return [self submitRequest:request completion:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error != nil) {
+            completion(nil, error);
+            return; // - - - - EARLY RETURN - - - -
+        }
+        else {
+            UIImage *image = [UIImage imageWithData:data];
+            completion(image, nil);
+        }
+    }];
+}
 
 @end
 
